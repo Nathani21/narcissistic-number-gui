@@ -1,14 +1,19 @@
 import customtkinter as ctk
 
-from narcissistic_number import digit_power_breakdown, is_narcissistic, parse_number
+from narcissistic_number import (
+    digit_power_breakdown,
+    find_narcissistic_numbers,
+    is_narcissistic,
+    parse_number,
+)
 
 
 class NarcissisticApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Narcissistic Number Checker")
-        self.geometry("460x340")
-        self.minsize(400, 300)
+        self.geometry("460x500")
+        self.minsize(400, 460)
 
         self._build_widgets()
 
@@ -36,6 +41,19 @@ class NarcissisticApp(ctk.CTk):
         self.breakdown_label = ctk.CTkLabel(self, text="", wraplength=380)
         self.breakdown_label.pack(pady=(0, 12))
 
+        ctk.CTkLabel(self, text="Find all narcissistic numbers up to:").pack(pady=(12, 4))
+
+        self.range_entry = ctk.CTkEntry(
+            self, width=240, placeholder_text="e.g. 10000", justify="center"
+        )
+        self.range_entry.pack(pady=(0, 12))
+        self.range_entry.bind("<Return>", lambda event: self.action_find())
+
+        ctk.CTkButton(self, text="Find", command=self.action_find).pack(pady=(0, 12))
+
+        self.range_label = ctk.CTkLabel(self, text="", wraplength=380)
+        self.range_label.pack(pady=(0, 16))
+
     def action_check(self):
         try:
             num = parse_number(self.entry.get())
@@ -55,6 +73,20 @@ class NarcissisticApp(ctk.CTk):
                 text=f"{num} is not a narcissistic number",
                 text_color=("gray10", "gray90"),
             )
+
+    def action_find(self):
+        try:
+            limit = parse_number(self.range_entry.get())
+            found = find_narcissistic_numbers(limit)
+        except ValueError as error:
+            self.range_label.configure(text=str(error), text_color="#d9534f")
+            return
+
+        numbers = ", ".join(str(n) for n in found)
+        self.range_label.configure(
+            text=f"{len(found)} found up to {limit:,}:\n{numbers}",
+            text_color=("gray10", "gray90"),
+        )
 
 
 def main():
