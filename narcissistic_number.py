@@ -19,8 +19,29 @@ def is_narcissistic(num):
     return total == num
 
 
+def parse_number(text):
+    """Convert text to a whole number that is 0 or greater.
+
+    Raises ValueError with a user-facing message if the text is not valid.
+    """
+    text = text.strip()
+    if not text:
+        raise ValueError("Please enter a number.")
+    try:
+        num = int(text)
+    except ValueError:
+        raise ValueError("Please enter a whole number, e.g. 153.") from None
+    if num < 0:
+        raise ValueError("Please enter a whole number that is 0 or greater.")
+    return num
+
+
 def main():
-    num = int(input("Enter a number: "))
+    try:
+        num = parse_number(input("Enter a number: "))
+    except ValueError as error:
+        print(error)
+        return
 
     if is_narcissistic(num):
         print(num, "is a narcissistic number")
