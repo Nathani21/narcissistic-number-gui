@@ -1,4 +1,6 @@
-from narcissistic_number import is_narcissistic
+import pytest
+
+from narcissistic_number import is_narcissistic, parse_number
 
 
 def test_single_digit_numbers_are_narcissistic():
@@ -44,3 +46,31 @@ def test_negative_numbers_are_not_narcissistic():
 def test_returns_a_bool():
     assert is_narcissistic(153) is True
     assert is_narcissistic(154) is False
+
+def test_parse_number_accepts_digits():
+    assert parse_number("153") == 153
+
+
+def test_parse_number_strips_whitespace():
+    assert parse_number("  153  ") == 153
+
+
+def test_parse_number_accepts_zero():
+    assert parse_number("0") == 0
+
+
+def test_parse_number_rejects_empty_input():
+    for text in ("", "   "):
+        with pytest.raises(ValueError, match="enter a number"):
+            parse_number(text)
+
+
+def test_parse_number_rejects_non_numbers():
+    for text in ("abc", "12a", "1.5"):
+        with pytest.raises(ValueError, match="whole number"):
+            parse_number(text)
+
+
+def test_parse_number_rejects_negative_numbers():
+    with pytest.raises(ValueError, match="0 or greater"):
+        parse_number("-5")
