@@ -35,6 +35,21 @@ def is_narcissistic(num):
     return total == num
 
 
+MAX_RANGE_LIMIT = 100_000
+
+
+def find_narcissistic_numbers(limit):
+    """Return every narcissistic number from 0 up to and including limit.
+
+    Raises ValueError if limit is above MAX_RANGE_LIMIT.
+    """
+    if limit > MAX_RANGE_LIMIT:
+        raise ValueError(
+            f"Please enter {MAX_RANGE_LIMIT:,} or less to keep the search quick."
+        )
+    return [n for n in range(limit + 1) if is_narcissistic(n)]
+
+
 def parse_number(text):
     """Convert text to a whole number that is 0 or greater.
 

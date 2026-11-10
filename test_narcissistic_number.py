@@ -1,6 +1,12 @@
 import pytest
 
-from narcissistic_number import digit_power_breakdown, is_narcissistic, parse_number
+from narcissistic_number import (
+    MAX_RANGE_LIMIT,
+    digit_power_breakdown,
+    find_narcissistic_numbers,
+    is_narcissistic,
+    parse_number,
+)
 
 
 def test_single_digit_numbers_are_narcissistic():
@@ -95,3 +101,27 @@ def test_breakdown_total_agrees_with_is_narcissistic():
     for n in range(1000):
         total = int(digit_power_breakdown(n).split("= ")[1])
         assert (total == n) == is_narcissistic(n)
+
+def test_find_up_to_10000():
+    assert find_narcissistic_numbers(10000) == [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 153, 370, 371, 407, 1634, 8208, 9474
+    ]
+
+
+def test_find_up_to_max_limit_includes_five_digit_numbers():
+    found = find_narcissistic_numbers(MAX_RANGE_LIMIT)
+    assert found[-3:] == [54748, 92727, 93084]
+    assert len(found) == 20
+
+
+def test_find_includes_the_limit_itself():
+    assert find_narcissistic_numbers(153)[-1] == 153
+
+
+def test_find_with_zero_limit():
+    assert find_narcissistic_numbers(0) == [0]
+
+
+def test_find_rejects_limit_above_max():
+    with pytest.raises(ValueError, match="100,000"):
+        find_narcissistic_numbers(MAX_RANGE_LIMIT + 1)
