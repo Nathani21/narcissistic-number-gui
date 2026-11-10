@@ -1,6 +1,6 @@
 # given a positive integer, determine whether it is a narcissistic number.
 # a number is narcissistic if the sum of each of its digits raised to the power of the total number of digits equals the number itself.
-# for example, 153 has 3 digits, and 1"3 + 5"3 + 3"3 = 153, so it is narcissitic.
+# for example, 153 has 3 digits, and 1^3 + 5^3 + 3^3 = 153, so it is narcissistic.
 
 def is_narcissistic(num):
     """Return True if num equals the sum of its digits, each raised to the number of digits."""
