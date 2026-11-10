@@ -11,7 +11,7 @@ from narcissistic_number import (
 class NarcissisticApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Narcissistic Number Checker")
+        self.title("Narcissistic Number Checker v1.0")
         self.geometry("460x500")
         self.minsize(400, 460)
 

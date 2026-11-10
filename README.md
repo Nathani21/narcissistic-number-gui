@@ -16,6 +16,10 @@ A number is narcissistic if the sum of its digits, each raised to the power of t
 - Friendly messages for invalid input instead of crashes
 - Follows your system's light or dark theme
 
+## Download
+
+Windows users can download `narcissistic-number-checker.exe` from the [latest release](https://github.com/Nathani21/narcissistic-number-gui/releases/latest) and double-click it. No Python needed. Windows SmartScreen may warn because the file isn't code-signed: click "More info", then "Run anyway".
+
 ## Run it
 
 Needs Python 3 (tested on 3.13).
