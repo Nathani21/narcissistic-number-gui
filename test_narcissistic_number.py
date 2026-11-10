@@ -1,6 +1,6 @@
 import pytest
 
-from narcissistic_number import is_narcissistic, parse_number
+from narcissistic_number import digit_power_breakdown, is_narcissistic, parse_number
 
 
 def test_single_digit_numbers_are_narcissistic():
@@ -74,3 +74,24 @@ def test_parse_number_rejects_non_numbers():
 def test_parse_number_rejects_negative_numbers():
     with pytest.raises(ValueError, match="0 or greater"):
         parse_number("-5")
+
+def test_breakdown_for_narcissistic_numbers():
+    assert digit_power_breakdown(153) == "1³ + 5³ + 3³ = 153"
+    assert digit_power_breakdown(407) == "4³ + 0³ + 7³ = 407"
+    assert digit_power_breakdown(9474) == "9⁴ + 4⁴ + 7⁴ + 4⁴ = 9474"
+
+
+def test_breakdown_for_non_narcissistic_numbers():
+    assert digit_power_breakdown(154) == "1³ + 5³ + 4³ = 190"
+    assert digit_power_breakdown(10) == "1² + 0² = 1"
+
+
+def test_breakdown_for_single_digits():
+    assert digit_power_breakdown(7) == "7¹ = 7"
+    assert digit_power_breakdown(0) == "0¹ = 0"
+
+
+def test_breakdown_total_agrees_with_is_narcissistic():
+    for n in range(1000):
+        total = int(digit_power_breakdown(n).split("= ")[1])
+        assert (total == n) == is_narcissistic(n)
