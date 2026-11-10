@@ -6,6 +6,8 @@ A small desktop app (Python and CustomTkinter) that checks whether a number is n
 
 A number is narcissistic if the sum of its digits, each raised to the power of the number of digits, equals the number itself. For example, 153 has 3 digits and 1³ + 5³ + 3³ = 153.
 
+![Narcissistic Number Checker window](screenshot.png)
+
 ## Features
 
 - Check any whole number that is 0 or greater
