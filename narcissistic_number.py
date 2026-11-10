@@ -2,6 +2,22 @@
 # a number is narcissistic if the sum of each of its digits raised to the power of the total number of digits equals the number itself.
 # for example, 153 has 3 digits, and 1^3 + 5^3 + 3^3 = 153, so it is narcissistic.
 
+SUPERSCRIPTS = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+
+
+def digit_power_breakdown(num):
+    """Show the sum of digit powers as text, e.g. 153 -> '1³ + 5³ + 3³ = 153'.
+
+    num must be 0 or greater.
+    """
+    digits = str(num)
+    power = len(digits)
+    exponent = str(power).translate(SUPERSCRIPTS)
+    terms = " + ".join(f"{digit}{exponent}" for digit in digits)
+    total = sum(int(digit) ** power for digit in digits)
+    return f"{terms} = {total}"
+
+
 def is_narcissistic(num):
     """Return True if num equals the sum of its digits, each raised to the number of digits."""
     # Convert number to string to count digits

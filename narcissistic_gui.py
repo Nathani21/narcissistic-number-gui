@@ -1,14 +1,14 @@
 import customtkinter as ctk
 
-from narcissistic_number import is_narcissistic, parse_number
+from narcissistic_number import digit_power_breakdown, is_narcissistic, parse_number
 
 
 class NarcissisticApp(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Narcissistic Number Checker")
-        self.geometry("460x300")
-        self.minsize(400, 260)
+        self.geometry("460x340")
+        self.minsize(400, 300)
 
         self._build_widgets()
 
@@ -31,14 +31,20 @@ class NarcissisticApp(ctk.CTk):
         self.result_label = ctk.CTkLabel(
             self, text="", wraplength=380, font=ctk.CTkFont(size=16)
         )
-        self.result_label.pack(pady=(0, 12))
+        self.result_label.pack(pady=(0, 4))
+
+        self.breakdown_label = ctk.CTkLabel(self, text="", wraplength=380)
+        self.breakdown_label.pack(pady=(0, 12))
 
     def action_check(self):
         try:
             num = parse_number(self.entry.get())
         except ValueError as error:
             self.result_label.configure(text=str(error), text_color="#d9534f")
+            self.breakdown_label.configure(text="")
             return
+
+        self.breakdown_label.configure(text=digit_power_breakdown(num))
 
         if is_narcissistic(num):
             self.result_label.configure(
