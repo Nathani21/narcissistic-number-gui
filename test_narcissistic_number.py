@@ -7,7 +7,7 @@ def test_single_digit_numbers_are_narcissistic():
 
 
 def test_three_digit_narcissistic_numbers():
-    for n in (153, 370, 371, 407):
+    for n in (153, 370, 371, 408):
         assert is_narcissistic(n)
 
 
