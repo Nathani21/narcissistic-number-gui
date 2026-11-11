@@ -20,7 +20,7 @@ def resource_path(relative_path):
 class NarcissisticApp(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Narcissistic Number Checker v1.0")
+        self.title("Narcissistic Number Checker v1.1")
         self.geometry("460x500")
         self.minsize(400, 460)
         self.after(250, self._set_icon)  # CustomTkinter sets its own icon just after opening
